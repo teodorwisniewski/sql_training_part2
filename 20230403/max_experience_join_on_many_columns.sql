@@ -14,12 +14,26 @@ WITH max_experience AS (
 
 
 
+--   SELECT p.project_id, p.employee_id 
+
+--   FROM Project p
+
+--   INNER JOIN Employee e USING(employee_id)
+
+--   INNER JOIN max_experience me ON
+
+--   p.project_id = me.project_id AND e.experience_years = me.max_experience
+
+
+
+
+
   SELECT p.project_id, p.employee_id 
 
   FROM Project p
 
   INNER JOIN Employee e USING(employee_id)
 
-  INNER JOIN max_experience me ON
+  WHERE (p.project_id, e.experience_years) IN 
 
-  p.project_id = me.project_id AND e.experience_years = me.max_experience
+  (SELECT * FROM max_experience)
