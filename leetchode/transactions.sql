@@ -78,3 +78,10 @@ SELECT DATE_FORMAT(trans_date, "%Y-%m") AS month, country,
 FROM Transactions t
 
 GROUP BY DATE_FORMAT(trans_date, "%Y-%m"), country
+
+
+-- COALESCE(SUM(
+
+--         state='approved'
+
+--       ), 0) AS approved_count,
