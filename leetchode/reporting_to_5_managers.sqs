@@ -1,0 +1,15 @@
+
+WITH reports_count AS 
+(
+  SELECT managerId, COUNT(distinct id) as reports_count
+  FROM Employee 
+  WHERE managerId IS NOT NULL
+  GROUP BY managerId        
+  HAVING reports_count>=5
+)
+
+SELECT e.name
+FROM reports_count rc
+JOIN Employee  e
+ON e.id = rc.managerId
+
