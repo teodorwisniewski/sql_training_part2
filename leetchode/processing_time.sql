@@ -1,33 +1,39 @@
-WITH processing_time_per_machine_per_process AS (
+SELECT s.machine_id, ROUND(AVG(e.timestamp-s.timestamp), 3) AS processing_time
+FROM Activity s JOIN Activity e ON
+    s.machine_id = e.machine_id AND s.process_id = e.process_id AND
+    s.activity_type = 'start' AND e.activity_type = 'end'
+GROUP BY s.machine_id
 
-    SELECT machine_id, process_id, SUM(timestamp) AS processing_time 
+-- WITH processing_time_per_machine_per_process AS (
 
-  FROM (
+--     SELECT machine_id, process_id, SUM(timestamp) AS processing_time 
 
-    SELECT machine_id,
+--   FROM (
 
-        process_id,
+--     SELECT machine_id,
 
-        CASE 
+--         process_id,
 
-          WHEN activity_type='end' THEN timestamp 
+--         CASE 
 
-          ELSE -timestamp END AS timestamp 
+--           WHEN activity_type='end' THEN timestamp 
 
-    FROM Activity
+--           ELSE -timestamp END AS timestamp 
 
-  ) t
+--     FROM Activity
 
-  GROUP BY machine_id, process_id
+--   ) t
 
-)
+--   GROUP BY machine_id, process_id
+
+-- )
 
 
 
-SELECT machine_id, ROUND(AVG(processing_time), 3)  AS processing_time    
+-- SELECT machine_id, ROUND(AVG(processing_time), 3)  AS processing_time    
 
-FROM processing_time_per_machine_per_process
+-- FROM processing_time_per_machine_per_process
 
-GROUP BY machine_id 
+-- GROUP BY machine_id 
 
 
