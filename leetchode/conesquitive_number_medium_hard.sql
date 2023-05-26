@@ -11,10 +11,18 @@
 --        num=num2
 
 
-SELECT DISTINCT(l1.num) AS ConsecutiveNums 
-FROM logs l1, logs l2, logs l3
-WHERE 
-    l1.id = l2.id +1 AND
-    l2.id = l3.id + 1 AND
-    l1.num = l2.num AND
-    l2.num = l3.num
+-- SELECT DISTINCT(l1.num) AS ConsecutiveNums 
+-- FROM logs l1, logs l2, logs l3
+-- WHERE 
+--     l1.id = l2.id +1 AND
+--     l2.id = l3.id + 1 AND
+--     l1.num = l2.num AND
+--     l2.num = l3.num
+
+
+-- SELECT DISTINCT(l1.num) AS ConsecutiveNums  
+
+SELECT DISTINCT(num) AS ConsecutiveNums 
+FROM Logs
+WHERE (id+1, Num) in (select * FROM Logs)
+AND (id+2, Num) in (select * FROM Logs)
